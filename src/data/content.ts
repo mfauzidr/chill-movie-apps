@@ -4,8 +4,18 @@ export interface Content {
   id: string;
   title: string;
   type: ContentType;
+
   poster: string;
   banner: string;
+
+  ageRating: string;
+  duration?: string;
+
+  episodes?: number;
+  seasons?: number;
+  episodeDuration?: string;
+
+  genres: string[];
 }
 
 export const contents: Content[] = [
@@ -15,6 +25,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-dl-up.webp",
     banner: "banner-dl-up.webp",
+    ageRating: "13+",
+    duration: "2j 18m",
+    genres: ["Komedi", "Drama", "Fiksi Ilmiah"],
   },
   {
     id: "all-of-us-are-dead",
@@ -22,6 +35,11 @@ export const contents: Content[] = [
     type: "series",
     poster: "poster-aoud.webp",
     banner: "banner-aoud.webp",
+    ageRating: "13+",
+    episodes: 16,
+    seasons: 1,
+    episodeDuration: "1j 6m",
+    genres: ["Misteri", "Kriminal", "Fantasi"],
   },
   {
     id: "blue-lock",
@@ -29,6 +47,11 @@ export const contents: Content[] = [
     type: "series",
     poster: "poster-blue-lock.webp",
     banner: "banner-blue-lock.webp",
+    ageRating: "13+",
+    episodes: 24,
+    seasons: 1,
+    episodeDuration: "24m",
+    genres: ["Anime", "Olahraga"],
   },
   {
     id: "a-man-called-otto",
@@ -36,6 +59,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-tmco.webp",
     banner: "banner-tmco.webp",
+    ageRating: "13+",
+    duration: "2j 33m",
+    genres: ["Drama", "Komedi", "Romantis"],
   },
   {
     id: "doctor-strange-multiverse-of-madness",
@@ -43,6 +69,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-ds-mom.webp",
     banner: "banner-ds-mom.webp",
+    ageRating: "13+",
+    duration: "2j 6m",
+    genres: ["Aksi", "Fantasi", "Petualangan"],
   },
   {
     id: "duty-after-school",
@@ -50,6 +79,11 @@ export const contents: Content[] = [
     type: "series",
     poster: "poster-das.webp",
     banner: "banner-das.webp",
+    ageRating: "13+",
+    episodes: 10,
+    seasons: 1,
+    episodeDuration: "1j 10m",
+    genres: ["Aksi", "Drama", "Fiksi Ilmiah"],
   },
   {
     id: "suzume",
@@ -57,6 +91,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-suzume.webp",
     banner: "banner-suzume.webp",
+    ageRating: "13+",
+    duration: "2j 1m",
+    genres: ["Anime", "Fantasi", "Petualangan"],
   },
   {
     id: "jurrasic-world",
@@ -64,6 +101,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-jw.webp",
     banner: "banner-jw.webp",
+    ageRating: "13+",
+    duration: "2j 4m",
+    genres: ["Aksi", "Petualangan", "Fiksi Ilmiah"],
   },
   {
     id: "sonic-2",
@@ -71,6 +111,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-sonic-2.webp",
     banner: "banner-sonic-2.webp",
+    ageRating: "SU",
+    duration: "2j 2m",
+    genres: ["Aksi", "Komedi", "Petualangan"],
   },
   {
     id: "big-hero-6",
@@ -78,6 +121,10 @@ export const contents: Content[] = [
     type: "series",
     poster: "poster-bh6.webp",
     banner: "banner-bh6.webp",
+    ageRating: "SU",
+    episodes: 6,
+    seasons: 1,
+    genres: ["Animasi", "Aksi", "Komedi"],
   },
   {
     id: "the-little-mermaid",
@@ -85,6 +132,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-tlm.webp",
     banner: "banner-tlm.webp",
+    ageRating: "SU",
+    duration: "2j 15m",
+    genres: ["Fantasi", "Musikal", "Petualangan"],
   },
   {
     id: "the-tomorrow-war",
@@ -92,6 +142,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-ttw.webp",
     banner: "banner-ttw.webp",
+    ageRating: "16+",
+    duration: "2j 18m",
+    genres: ["Aksi", "Fiksi Ilmiah", "Petualangan"],
   },
   {
     id: "ant-man-and-the-wasp-quantumania",
@@ -99,6 +152,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-amqm.webp",
     banner: "banner-amqm.webp",
+    ageRating: "13+",
+    duration: "2j 5m",
+    genres: ["Aksi", "Fantasi", "Petualangan"],
   },
   {
     id: "guardians-of-the-galaxy",
@@ -106,13 +162,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-gotg.webp",
     banner: "banner-gotg.webp",
-  },
-  {
-    id: "a-man-called-otto",
-    title: "A Man Called Otto",
-    type: "film",
-    poster: "poster-tmco.webp",
-    banner: "banner-tmco.webp",
+    ageRating: "13+",
+    duration: "2j 1m",
+    genres: ["Aksi", "Komedi", "Fiksi Ilmiah"],
   },
   {
     id: "alice-in-borderland",
@@ -120,6 +172,10 @@ export const contents: Content[] = [
     type: "series",
     poster: "poster-aib.webp",
     banner: "banner-aib.webp",
+    ageRating: "18+",
+    episodes: 16,
+    seasons: 2,
+    genres: ["Aksi", "Misteri", "Thriller"],
   },
   {
     id: "avatar",
@@ -127,6 +183,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-avatar.webp",
     banner: "banner-avatar.webp",
+    ageRating: "13+",
+    duration: "2j 42m",
+    genres: ["Aksi", "Fantasi", "Petualangan"],
   },
   {
     id: "baymax-series",
@@ -134,6 +193,10 @@ export const contents: Content[] = [
     type: "series",
     poster: "poster-baymax-series.webp",
     banner: "banner-baymax-series.webp",
+    ageRating: "SU",
+    episodes: 6,
+    seasons: 1,
+    genres: ["Animasi", "Komedi", "Petualangan"],
   },
   {
     id: "black-adam",
@@ -141,6 +204,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-black-adam.webp",
     banner: "banner-black-adam.webp",
+    ageRating: "13+",
+    duration: "2j 5m",
+    genres: ["Aksi", "Fantasi", "Petualangan"],
   },
   {
     id: "dilan-1991",
@@ -148,6 +214,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-dilan-1991.webp",
     banner: "banner-dilan-1991.webp",
+    ageRating: "13+",
+    duration: "2j 1m",
+    genres: ["Drama", "Romantis"],
   },
   {
     id: "fast-x",
@@ -155,6 +224,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-fast-x.webp",
     banner: "banner-fast-x.webp",
+    ageRating: "13+",
+    duration: "2j 21m",
+    genres: ["Aksi", "Kriminal", "Thriller"],
   },
   {
     id: "happiness",
@@ -162,6 +234,10 @@ export const contents: Content[] = [
     type: "series",
     poster: "poster-happiness.webp",
     banner: "banner-happiness.webp",
+    ageRating: "18+",
+    episodes: 12,
+    seasons: 1,
+    genres: ["Drama", "Thriller", "Misteri"],
   },
   {
     id: "m3gan",
@@ -169,6 +245,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-megan.webp",
     banner: "banner-megan.webp",
+    ageRating: "16+",
+    duration: "1j 42m",
+    genres: ["Horror", "Thriller", "Fiksi Ilmiah"],
   },
   {
     id: "my-hero-academia",
@@ -176,6 +255,10 @@ export const contents: Content[] = [
     type: "series",
     poster: "poster-mha.webp",
     banner: "banner-mha.webp",
+    ageRating: "13+",
+    episodes: 13,
+    seasons: 7,
+    genres: ["Anime", "Aksi", "Petualangan"],
   },
   {
     id: "missing",
@@ -183,6 +266,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-missing.webp",
     banner: "banner-missing.webp",
+    ageRating: "13+",
+    duration: "1j 51m",
+    genres: ["Misteri", "Thriller", "Drama"],
   },
   {
     id: "rio",
@@ -190,6 +276,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-rio.webp",
     banner: "banner-rio.webp",
+    ageRating: "SU",
+    duration: "1j 36m",
+    genres: ["Animasi", "Komedi", "Petualangan"],
   },
   {
     id: "spider-man-across-the-spider-verse",
@@ -197,6 +286,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-sasv.webp",
     banner: "banner-sasv.webp",
+    ageRating: "13+",
+    duration: "2j 20m",
+    genres: ["Animasi", "Aksi", "Petualangan"],
   },
   {
     id: "stuart-little",
@@ -204,6 +296,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-stuart-l.webp",
     banner: "banner-stuart-l.webp",
+    ageRating: "SU",
+    duration: "1j 24m",
+    genres: ["Animasi", "Komedi", "Petualangan"],
   },
   {
     id: "ted-lasso",
@@ -211,6 +306,10 @@ export const contents: Content[] = [
     type: "series",
     poster: "poster-ted-lasso.webp",
     banner: "banner-ted-lasso.webp",
+    ageRating: "13+",
+    episodes: 12,
+    seasons: 3,
+    genres: ["Komedi", "Drama", "Olahraga"],
   },
   {
     id: "the-batman",
@@ -218,6 +317,9 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-the-batman.webp",
     banner: "banner-the-batman.webp",
+    ageRating: "13+",
+    duration: "2j 56m",
+    genres: ["Aksi", "Kriminal", "Drama"],
   },
   {
     id: "shazam",
@@ -225,12 +327,8 @@ export const contents: Content[] = [
     type: "film",
     poster: "poster-shazam.webp",
     banner: "banner-shazam.webp",
-  },
-  {
-    id: "dilan-1991",
-    title: "Dilan 1991",
-    type: "film",
-    poster: "poster-dilan-1991.webp",
-    banner: "banner-dilan-1991.webp",
+    ageRating: "13+",
+    duration: "2j 12m",
+    genres: ["Aksi", "Komedi", "Fantasi"],
   },
 ];

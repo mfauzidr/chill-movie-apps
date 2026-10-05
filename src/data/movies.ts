@@ -3,12 +3,14 @@ export interface Movie {
   rating?: string;
   isNew?: boolean;
   isTopTen?: boolean;
+  progress?: number;
+  episode?: number;
 }
 
 export interface MovieSectionData {
   id: string;
   title: string;
-  variant: "banners" | "poster";
+  variant: "banners" | "poster" | "continue";
   movies: Movie[];
 }
 
@@ -16,31 +18,40 @@ export const movieSections: MovieSectionData[] = [
   {
     id: "lanjut-menonton",
     title: "Melanjutkan Tonton Film",
-    variant: "banners",
+    variant: "continue",
     movies: [
       {
         contentId: "dont-look-up",
         rating: "4.5/5",
+        progress: 35,
       },
       {
         contentId: "all-of-us-are-dead",
         rating: "4.2/5",
+        progress: 35,
+        episode: 1,
       },
       {
         contentId: "blue-lock",
         rating: "4.6/5",
+        progress: 60,
+        episode: 8,
       },
       {
         contentId: "a-man-called-otto",
         rating: "4.5/5",
+        progress: 48,
       },
       {
         contentId: "doctor-strange-multiverse-of-madness",
         rating: "4.5/5",
+        progress: 72,
       },
       {
         contentId: "duty-after-school",
         rating: "4.1/5",
+        progress: 26,
+        episode: 3,
       },
     ],
   },
@@ -136,6 +147,11 @@ export const movieSections: MovieSectionData[] = [
       },
       {
         contentId: "jurrasic-world",
+      },
+      {
+        contentId: "ant-man-and-the-wasp-quantumania",
+        isNew: true,
+        isTopTen: true,
       },
     ],
   },
