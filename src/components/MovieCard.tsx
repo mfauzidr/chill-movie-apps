@@ -2,7 +2,7 @@ import type { Content } from "../data/content";
 
 interface MovieCardProps {
   content: Content;
-  variant: "continue" | "poster";
+  variant: "banners" | "poster";
   rating?: string;
   isNew?: boolean;
   isTopTen?: boolean;
@@ -15,19 +15,16 @@ const MovieCard = ({
   isNew,
   isTopTen,
 }: MovieCardProps) => {
-  const image = variant === "continue" ? content.banner : content.poster;
+  const image = variant === "banners" ? content.banner : content.poster;
 
-  const imageDirectory =
-    variant === "continue" ? "banners" : "posters";
+  const imageDirectory = variant === "banners" ? "banners" : "posters";
 
   const baseClasses =
     "relative flex shrink-0 cursor-pointer overflow-hidden rounded-md";
 
-  if (variant === "continue") {
+  if (variant === "banners") {
     return (
-      <div
-        className={`${baseClasses} h-37.75 w-77.25 md:h-40 md:w-75`}
-      >
+      <div className={`${baseClasses} h-37.75 w-77.25 md:h-40 md:w-75`}>
         <img
           src={`/assets/${imageDirectory}/${image}`}
           alt={content.title}
@@ -44,6 +41,7 @@ const MovieCard = ({
             {rating}
           </span>
         </div>
+        
       </div>
     );
   }

@@ -8,7 +8,7 @@ export interface Movie {
 export interface MovieSectionData {
   id: string;
   title: string;
-  variant: "continue" | "poster";
+  variant: "banners" | "poster";
   movies: Movie[];
 }
 
@@ -16,7 +16,7 @@ export const movieSections: MovieSectionData[] = [
   {
     id: "lanjut-menonton",
     title: "Melanjutkan Tonton Film",
-    variant: "continue",
+    variant: "banners",
     movies: [
       {
         contentId: "dont-look-up",
@@ -44,7 +44,6 @@ export const movieSections: MovieSectionData[] = [
       },
     ],
   },
-
   {
     id: "film",
     title: "Top Rating Film dan Series Hari Ini",
@@ -55,17 +54,17 @@ export const movieSections: MovieSectionData[] = [
         isNew: true,
       },
       {
-        contentId: "john-wick",
+        contentId: "jurrasic-world",
       },
       {
-        contentId: "sonic",
+        contentId: "sonic-2",
       },
       {
         contentId: "all-of-us-are-dead",
         isNew: true,
       },
       {
-        contentId: "black-hat-society",
+        contentId: "big-hero-6",
       },
       {
         contentId: "the-little-mermaid",
@@ -75,7 +74,6 @@ export const movieSections: MovieSectionData[] = [
       },
     ],
   },
-
   {
     id: "trending",
     title: "Film Trending",
@@ -86,7 +84,7 @@ export const movieSections: MovieSectionData[] = [
         isTopTen: true,
       },
       {
-        contentId: "a-quiet-place",
+        contentId: "ant-man-and-the-wasp-quantumania",
         isTopTen: true,
       },
       {
@@ -94,7 +92,7 @@ export const movieSections: MovieSectionData[] = [
         isTopTen: true,
       },
       {
-        contentId: "the-man-called-otto",
+        contentId: "a-man-called-otto",
         isTopTen: true,
       },
       {
@@ -102,7 +100,7 @@ export const movieSections: MovieSectionData[] = [
         isTopTen: true,
       },
       {
-        contentId: "sonic",
+        contentId: "sonic-2",
         isTopTen: true,
       },
       {
@@ -111,7 +109,6 @@ export const movieSections: MovieSectionData[] = [
       },
     ],
   },
-
   {
     id: "series",
     title: "Rilis Baru",
@@ -126,7 +123,7 @@ export const movieSections: MovieSectionData[] = [
         isNew: true,
       },
       {
-        contentId: "black-hat-society",
+        contentId: "big-hero-6",
       },
       {
         contentId: "all-of-us-are-dead",
@@ -138,7 +135,7 @@ export const movieSections: MovieSectionData[] = [
         isTopTen: true,
       },
       {
-        contentId: "john-wick",
+        contentId: "jurrasic-world",
       },
     ],
   },

@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section
       className="relative isolate flex min-h-56 w-full flex-col justify-end gap-2.5 bg-cover bg-center px-8 pb-10 md:min-h-80 md:gap-5 md:px-12 lg:h-96 lg:gap-10 lg:px-32"
-      style={{ backgroundImage: "url('/assets/banners/banner-da-school.webp')" }}
+      style={{ backgroundImage: "url('/assets/banners/banner-das.webp')" }}
     >
       <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-header-background/10 to-header-background" />
       <div className="relative z-10 flex w-full flex-col gap-2">
