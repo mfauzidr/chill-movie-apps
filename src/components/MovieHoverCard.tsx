@@ -28,7 +28,7 @@ const MovieHoverCard = ({
 }: MovieHoverCardProps) =>
   createPortal(
     <div
-      className="fixed z-40 hidden h-auto w-102 rounded-xl bg-header-background shadow-2xl lg:block"
+      className="fixed z-40 hidden h-auto w-102 rounded-xl bg-header-background shadow-2xl shadow-gray-800 lg:block overflow-hidden"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={position}
