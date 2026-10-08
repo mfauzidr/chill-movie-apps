@@ -3,6 +3,30 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
 
+  type MenuItem = {
+    label: string;
+    icon: string;
+    onClick: () => void;
+  };
+
+  const menuItems: MenuItem[] = [
+    {
+      label: "Profil Saya",
+      icon: "profile.svg",
+      onClick: () => navigate("/login"),
+    },
+    {
+      label: "Ubah Premium",
+      icon: "star.svg",
+      onClick: () => navigate("/#"),
+    },
+    {
+      label: "Keluar",
+      icon: "sign.svg",
+      onClick: () => navigate("/#"),
+    },
+  ];
+
   return (
     <header>
       <nav className="mx-auto flex h-14 w-full items-center justify-between px-8 md:h-16 md:px-12 lg:h-20 lg:px-32">
@@ -58,19 +82,16 @@ const Navbar = () => {
             />
           </div>
           <div className="absolute right-0 top-full z-10 hidden w-40 rounded-b-md bg-header-background p-3 text-xs group-hover:block md:w-56 md:text-sm lg:text-base">
-            {[
-              ["Profil Saya", "profile.svg"],
-              ["Ubah Premium", "star.svg"],
-              ["Keluar", "sign.svg"],
-            ].map(([label, icon]) => (
-              <a
+            {menuItems.map(({ label, icon, onClick }) => (
+              <button
                 key={label}
-                href="#"
-                className="flex items-center gap-2 px-3 py-3 font-bold text-text-light no-underline hover:text-primary-hover"
+                type="button"
+                className="flex w-full items-center gap-2 px-3 py-3 text-left font-bold text-text-light hover:text-primary-hover"
+                onClick={onClick}
               >
                 <img className="h-5 w-5" src={`/assets/icons/${icon}`} alt="" />
                 <span>{label}</span>
-              </a>
+              </button>
             ))}
           </div>
         </div>
