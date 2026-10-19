@@ -1,12 +1,19 @@
 import type { MovieSectionData } from "../data/movies";
-import { contents } from "../data/content";
 import MovieCard from "./MovieCard";
 import { CarrouselButton } from "./Button";
 import { useRef, useState } from "react";
+import type { Content } from "../data/content";
 
-type MovieSectionProps = MovieSectionData;
+type MovieSectionProps = MovieSectionData & {
+  contents: Content[];
+};
 
-const MovieSection = ({ title, variant, movies }: MovieSectionProps) => {
+const MovieSection = ({
+  title,
+  variant,
+  movies,
+  contents,
+}: MovieSectionProps) => {
   const [activeMovieId, setActiveMovieId] = useState<string | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -25,7 +32,10 @@ const MovieSection = ({ title, variant, movies }: MovieSectionProps) => {
     <section className="flex flex-col gap-5 py-5 md:py-7.5 lg:py-10 md:gap-6.5 lg:gap-8">
       <h2 className="text-xl font-bold">{title}</h2>
       <div className="relative">
-        <div ref={carouselRef} className="relative flex items-center overflow-x-scroll scrollbar-hidden gap-4 md:gap-6">
+        <div
+          ref={carouselRef}
+          className="relative flex items-center overflow-x-scroll scrollbar-hidden gap-4 md:gap-6"
+        >
           {movies.map((movie) => {
             const content = contents.find(
               (content) => content.id === movie.contentId,
