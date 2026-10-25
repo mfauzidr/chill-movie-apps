@@ -1,17 +1,22 @@
-import { Navigate, type RouteObject } from "react-router-dom";
-import type { Dispatch, SetStateAction } from "react";
-import type { Content } from "../data/content";
+import {
+  createBrowserRouter,
+  Navigate,
+} from "react-router-dom";
+
+import AppLayout from "../layouts/AppLayout";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 
-export const createAppRoutes = (
-  contents: Content[],
-  setContents: Dispatch<SetStateAction<Content[]>>,
-): RouteObject[] => [
+const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomePage contents={contents} />,
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+    ],
   },
   {
     path: "/login",
@@ -25,4 +30,6 @@ export const createAppRoutes = (
     path: "*",
     element: <Navigate to="/" replace />,
   },
-];
+]);
+
+export default router;

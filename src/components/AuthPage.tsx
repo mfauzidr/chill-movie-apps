@@ -1,4 +1,3 @@
-import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import FormField from "./FormField";
@@ -12,7 +11,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
   const isLogin = mode === "login";
   const title = isLogin ? "Masuk" : "Daftar";
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 

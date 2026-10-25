@@ -1,16 +1,19 @@
-import { useState } from "react";
-import { useRoutes } from "react-router-dom";
-import { contents as initialContents } from "../data/content";
-import { createAppRoutes } from "../routes/router";
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const AppLayout = () => {
-  const [contents, setContents] = useState(initialContents);
+  return (
+    <>
+      <Navbar />
 
-  const routes = useRoutes(
-    createAppRoutes(contents, setContents),
+      <main>
+        <Outlet />
+      </main>
+
+      <Footer />
+    </>
   );
-
-  return routes;
 };
 
 export default AppLayout;
