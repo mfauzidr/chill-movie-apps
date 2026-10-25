@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import {NavbarProps} from "../../types/navigations";
+import { NavbarProps } from "../../types/navigations";
+
+const publicNavItems = [
+  { label: "Series", href: "#series" },
+  { label: "Film", href: "#film" },
+  { label: "Daftar Saya", href: "#lanjut-menonton" },
+];
 
 const Navbar = ({ navItems }: NavbarProps) => {
   const navigate = useNavigate();
+  const displayedNavItems = navItems ?? publicNavItems;
 
   type MenuItem = {
     label: string;
@@ -31,7 +38,7 @@ const Navbar = ({ navItems }: NavbarProps) => {
   ];
 
   return (
-    <header>
+    <header className="relative z-40 shrink-0">
       <nav className="mx-auto flex h-14 w-full items-center justify-between px-8 md:h-16 md:px-12 lg:h-20 lg:px-32">
         <div className="flex items-center gap-3 md:gap-8 lg:gap-12">
           <button
@@ -46,8 +53,8 @@ const Navbar = ({ navItems }: NavbarProps) => {
             />
           </button>
           <div className="flex gap-3 md:gap-6 lg:gap-8">
-            {navItems?.map(({ label, href }) => (
-              <a className="text-sm text-text-light no-underline hover:text-greyscale-400 md:text-base md:font-bold lg:text-lg"
+            {displayedNavItems.map(({ label, href }) => (
+              <a key={label} className="text-sm text-text-light no-underline hover:text-greyscale-400 md:text-base md:font-bold lg:text-lg"
                 href={href}
               >
                 {label}
