@@ -1,18 +1,18 @@
 import { useState } from "react";
 
-interface FormFieldProps {
+interface InputFieldProps {
   id: string;
   label: string;
   placeholder: string;
   type?: "text" | "password";
 }
 
-const FormField = ({
+const InputField = ({
   id,
   label,
   placeholder,
   type = "text",
-}: FormFieldProps) => {
+}: InputFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const isPassword = type === "password";
@@ -58,4 +58,4 @@ const FormField = ({
   );
 };
 
-export default FormField;
+export default InputField;

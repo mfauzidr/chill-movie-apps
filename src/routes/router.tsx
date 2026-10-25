@@ -7,6 +7,8 @@ import AppLayout from "../layouts/AppLayout";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import AdminPage from "../pages/admin/AdminPage";
+import AdminLayout from "../layouts/AdminLayout";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,15 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+    ],
+  },
+  {
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "/admin",
+        element: <AdminPage />,
       },
     ],
   },

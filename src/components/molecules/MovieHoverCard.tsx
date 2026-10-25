@@ -1,6 +1,9 @@
 import { createPortal } from "react-dom";
-import type { Content } from "../data/content";
-import Button from "./Button";
+import type { Content } from "../../data/content";
+import Button from "../atoms/Button";
+import check from "/assets/icons/check.svg";
+import play from "/assets/icons/play.svg";
+import dropdown from "/assets/icons/dropdown.svg";
 
 export type HoverCardPosition = {
   left: number;
@@ -46,13 +49,13 @@ const MovieHoverCard = ({
               variant="outline"
               className="flex h-11.5 w-11.5 items-center justify-center bg-white"
             >
-              <img src="/assets/icons/play.svg" alt="Play" className="h-4 w-4" />
+              <img src={play} alt="Play" className="h-4 w-4" />
             </Button>
             <Button
               variant="outlineWhite"
               className="flex h-11.5 w-11.5 items-center justify-center"
             >
-              <img src="/assets/icons/check.svg" alt="Check" className="h-6 w-6" />
+              <img src={check} alt="Check" className="h-6 w-6" />
             </Button>
           </div>
           <Button
@@ -60,7 +63,7 @@ const MovieHoverCard = ({
             className="flex h-11.5 w-11.5 items-center justify-center"
           >
             <img
-              src="/assets/icons/dropdown.svg"
+              src={dropdown}
               alt="Dropdown"
               className="h-6 w-6"
             />

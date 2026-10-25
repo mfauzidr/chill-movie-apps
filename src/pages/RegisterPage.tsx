@@ -1,7 +1,7 @@
-import AuthPage from '../components/AuthPage'
+import AuthTemplate from '../components/templates/AuthTemplate'
 
 const RegisterPage = () => {
-  return <AuthPage mode="register" />
+  return <AuthTemplate mode="register" />
 }
 
 export default RegisterPage

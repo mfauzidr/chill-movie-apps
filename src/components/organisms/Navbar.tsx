@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import {NavbarProps} from "../../types/navigations";
 
-const Navbar = () => {
+const Navbar = ({ navItems }: NavbarProps) => {
   const navigate = useNavigate();
 
   type MenuItem = {
@@ -8,6 +9,8 @@ const Navbar = () => {
     icon: string;
     onClick: () => void;
   };
+
+  
 
   const menuItems: MenuItem[] = [
     {
@@ -43,24 +46,13 @@ const Navbar = () => {
             />
           </button>
           <div className="flex gap-3 md:gap-6 lg:gap-8">
-            <a
-              className="text-sm text-text-light no-underline hover:text-greyscale-400 md:text-base md:font-bold lg:text-lg"
-              href="#series"
-            >
-              Series
-            </a>
-            <a
-              className="text-sm text-text-light no-underline hover:text-greyscale-400 md:text-base md:font-bold lg:text-lg"
-              href="#film"
-            >
-              Film
-            </a>
-            <a
-              className="text-sm text-text-light no-underline hover:text-greyscale-400 md:text-base md:font-bold lg:text-lg"
-              href="#lanjut-menonton"
-            >
-              Daftar Saya
-            </a>
+            {navItems?.map(({ label, href }) => (
+              <a className="text-sm text-text-light no-underline hover:text-greyscale-400 md:text-base md:font-bold lg:text-lg"
+                href={href}
+              >
+                {label}
+              </a>
+            ))}
           </div>
         </div>
         <div className="group relative">

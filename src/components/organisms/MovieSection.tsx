@@ -1,8 +1,8 @@
-import type { MovieSectionData } from "../data/movies";
+import type { MovieSectionData } from "../../data/movies";
 import MovieCard from "./MovieCard";
-import { CarrouselButton } from "./Button";
+import { CarrouselButton } from "../atoms/Button";
 import { useRef, useState } from "react";
-import type { Content } from "../data/content";
+import type { Content } from "../../data/content";
 
 type MovieSectionProps = MovieSectionData & {
   contents: Content[];

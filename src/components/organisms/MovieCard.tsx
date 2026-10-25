@@ -1,6 +1,6 @@
-import type { Content } from "../data/content";
+import type { Content } from "../../data/content";
 import { useEffect, useRef, useState } from "react";
-import MovieHoverCard, { type HoverCardPosition } from "./MovieHoverCard";
+import MovieHoverCard, { type HoverCardPosition } from "../molecules/MovieHoverCard";
 
 interface MovieCardProps {
   content: Content;

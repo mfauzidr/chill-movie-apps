@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
-import FormField from "./FormField";
+import Button from "../atoms/Button";
+import InputField from "../molecules/InputField";
 
-interface AuthPageProps {
+interface AuthTemplateProps {
   mode: "login" | "register";
 }
 
-const AuthPage = ({ mode }: AuthPageProps) => {
+const AuthTemplate = ({ mode }: AuthTemplateProps) => {
   const navigate = useNavigate();
   const isLogin = mode === "login";
   const title = isLogin ? "Masuk" : "Daftar";
@@ -45,19 +45,19 @@ const AuthPage = ({ mode }: AuthPageProps) => {
         </div>
         <div className="flex w-full flex-col gap-6">
           <fieldset className="m-0 flex flex-col gap-6 border-0 p-0">
-            <FormField
+            <InputField
               id="username"
               label="Username"
               placeholder="Masukkan username"
             />
-            <FormField
+            <InputField
               id="password"
               label="Kata Sandi"
               placeholder="Masukkan kata sandi"
               type="password"
             />
             {!isLogin && (
-              <FormField
+              <InputField
                 id="confirm-password"
                 label="Konfirmasi Kata Sandi"
                 placeholder="Konfirmasi kata sandi"
@@ -115,4 +115,4 @@ const AuthPage = ({ mode }: AuthPageProps) => {
   );
 };
 
-export default AuthPage;
+export default AuthTemplate;

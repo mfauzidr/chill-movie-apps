@@ -1,7 +1,7 @@
-import AuthPage from '../components/AuthPage'
+import AuthTemplate from '../components/templates/AuthTemplate'
 
 const LoginPage = () => {
-  return <AuthPage mode="login" />
+  return <AuthTemplate mode="login" />
 }
 
 export default LoginPage

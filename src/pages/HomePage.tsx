@@ -1,5 +1,5 @@
-import Hero from "../components/Hero";
-import MovieSection from "../components/MovieSection";
+import Hero from "../components/organisms/Hero";
+import MovieSection from "../components/organisms/MovieSection";
 import { movieSections } from "../data/movies";
 import { useContentStore } from "../stores/contentStore";
 
