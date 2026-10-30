@@ -1,18 +1,28 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../components/organisms/Navbar";
 import Footer from "../components/organisms/Footer";
 import { NavItems } from "../types/navigations";
 
 const AppLayout = () => {
-  const navItems: NavItems[] = [
-  { label: "Home", href: "/" },
-  { label: "Movies", href: "/movies" },
-  { label: "Series", href: "/series" },
-];
+  const navigate = useNavigate();
 
+  const publicNavItems: NavItems[] = [
+    { 
+      label: "Series", 
+      onClick: () => {} },
+    { 
+      label: "Film", 
+      onClick: () => {} },
+    {
+      label: "Daftar Saya",
+      onClick: () => {},
+    },
+    { label: "Admin", 
+      onClick: () => navigate("/admin") },
+  ];
   return (
     <>
-      <Navbar navItems={navItems}/>
+      <Navbar navItems={publicNavItems} />
 
       <main>
         <Outlet />

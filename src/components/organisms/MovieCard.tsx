@@ -5,11 +5,6 @@ import MovieHoverCard, { type HoverCardPosition } from "../molecules/MovieHoverC
 interface MovieCardProps {
   content: Content;
   variant: "banners" | "poster" | "continue";
-  rating?: string;
-  isNew?: boolean;
-  isTopTen?: boolean;
-  progress?: number;
-  episode?: number;
   isActive: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
@@ -26,11 +21,6 @@ const clamp = (value: number, min: number, max: number) =>
 const MovieCard = ({
   content,
   variant,
-  rating,
-  isNew,
-  isTopTen,
-  progress = 0,
-  episode,
   isActive,
   onMouseEnter,
   onMouseLeave,
@@ -40,8 +30,12 @@ const MovieCard = ({
   const [hoverCardPosition, setHoverCardPosition] =
     useState<HoverCardPosition | null>(null);
   const isContinue = variant === "continue";
+  const progress = content.progress ?? 0;
+  const episode = content.episode;
   const image = variant === "poster" ? content.poster : content.banner;
   const imageDirectory = variant === "poster" ? "posters" : "banners";
+  const imageSource = image.startsWith("blob:") || image.startsWith("http") || image.startsWith("/") || image.startsWith("data:")
+    ? image : `/assets/${imageDirectory}/${image}`;
   const baseClasses =
     "relative flex shrink-0 cursor-pointer overflow-hidden rounded-md";
 
@@ -115,7 +109,7 @@ const MovieCard = ({
     return (
       <div className={`${baseClasses} h-37.75 w-77.25 md:h-40 md:w-75`}>
         <img
-          src={`/assets/${imageDirectory}/${image}`}
+          src={imageSource}
           alt={content.title}
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -124,7 +118,7 @@ const MovieCard = ({
           <span>{content.title}</span>
           <span className="flex items-center gap-2 text-text-light">
             <span className="h-2.5 w-2.5 bg-current [mask:url('/assets/icons/star.svg')_center/contain_no-repeat]" />
-            {rating}
+            {content.rating}
           </span>
         </div>
       </div>
@@ -142,16 +136,16 @@ const MovieCard = ({
         className={`${baseClasses} ${isContinue ? "h-37.75 w-77.25 md:h-40 md:w-75" : "h-36.25 w-23.75 p-1.75 md:h-91.25 md:w-58.5"}`}
       >
         <img
-          src={`/assets/${imageDirectory}/${image}`}
+          src={imageSource}
           alt={content.title}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        {isNew && (
+        {content.isNew && (
           <span className="absolute left-1 top-1 z-10 flex h-4 items-center rounded-xl bg-primary-pressed px-2 text-[8px] md:left-2 md:top-2 md:h-7 md:px-3 md:py-3 md:text-xs lg:text-sm">
             Rilis Baru
           </span>
         )}
-        {isTopTen && (
+        {content.isTopTen && (
           <span className="absolute right-1 top-0 z-10 flex h-5.5 w-3.5 flex-col items-center justify-center rounded-bl-xs rounded-tr-xs bg-error-pressed px-0.5 text-[6.5px] font-light md:h-12 md:w-8 md:p-1 md:text-sm">
             <span>Top</span>
             <span>10</span>

@@ -1,38 +1,36 @@
 import { useNavigate } from "react-router-dom";
-import { NavbarProps } from "../../types/navigations";
+import type { ComponentType, SVGProps } from "react";
 
-const publicNavItems = [
-  { label: "Series", href: "#series" },
-  { label: "Film", href: "#film" },
-  { label: "Daftar Saya", href: "#lanjut-menonton" },
-];
+import type { NavbarProps, NavItems } from "../../types/navigations";
+
+import ProfileIcon from "../../../public/assets/icons/profile.svg?react";
+import StarIcon from "../../../public/assets/icons/star.svg?react";
+import SignIcon from "../../../public/assets/icons/sign.svg?react";
 
 const Navbar = ({ navItems }: NavbarProps) => {
   const navigate = useNavigate();
-  const displayedNavItems = navItems ?? publicNavItems;
+  const displayedNavItems: NavItems[] = navItems ?? [];
 
   type MenuItem = {
     label: string;
-    icon: string;
+    icon: ComponentType<SVGProps<SVGSVGElement>>;
     onClick: () => void;
   };
-
-  
 
   const menuItems: MenuItem[] = [
     {
       label: "Profil Saya",
-      icon: "profile.svg",
+      icon: ProfileIcon,
       onClick: () => navigate("/login"),
     },
     {
       label: "Ubah Premium",
-      icon: "star.svg",
+      icon: StarIcon,
       onClick: () => navigate("/#"),
     },
     {
       label: "Keluar",
-      icon: "sign.svg",
+      icon: SignIcon,
       onClick: () => navigate("/#"),
     },
   ];
@@ -53,12 +51,14 @@ const Navbar = ({ navItems }: NavbarProps) => {
             />
           </button>
           <div className="flex gap-3 md:gap-6 lg:gap-8">
-            {displayedNavItems.map(({ label, href }) => (
-              <a key={label} className="text-sm text-text-light no-underline hover:text-greyscale-400 md:text-base md:font-bold lg:text-lg"
-                href={href}
+            {displayedNavItems.map(({ label, onClick }) => (
+              <button
+                key={label}
+                className="text-sm text-text-light no-underline hover:text-greyscale-400 hover:cursor-pointer md:text-base md:font-bold lg:text-lg"
+                onClick={onClick}
               >
                 {label}
-              </a>
+              </button>
             ))}
           </div>
         </div>
@@ -80,15 +80,15 @@ const Navbar = ({ navItems }: NavbarProps) => {
               className="h-7.5 w-7.5 md:h-8 md:w-8 lg:h-10 lg:w-10"
             />
           </div>
-          <div className="absolute right-0 top-full z-10 hidden w-40 rounded-b-md bg-header-background p-3 text-xs group-hover:block md:w-56 md:text-sm lg:text-base">
-            {menuItems.map(({ label, icon, onClick }) => (
+          <div className="absolute right-0 top-full z-10 hidden w-40 rounded-b-md bg-header-background p-3 text-xs md:w-56 md:text-sm lg:text-base group-hover:block">
+            {menuItems.map(({ label, icon: Icon, onClick }) => (
               <button
                 key={label}
                 type="button"
-                className="flex w-full items-center gap-2 px-3 py-3 text-left font-bold text-text-light hover:text-primary-hover"
+                className="flex w-full items-center gap-2 px-3 py-3 text-left font-bold text-white transition-colors hover:text-primary-hover"
                 onClick={onClick}
               >
-                <img className="h-5 w-5" src={`/assets/icons/${icon}`} alt="" />
+                <Icon className="h-5 w-5" />
                 <span>{label}</span>
               </button>
             ))}

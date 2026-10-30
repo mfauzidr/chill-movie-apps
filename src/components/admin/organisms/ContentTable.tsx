@@ -2,9 +2,19 @@ import type { Content } from "../../../data/content";
 
 interface ContentTableProps {
   contents: Content[];
+  onEdit: (content: Content) => void;
+  onDelete: (content: Content) => void;
 }
 
-const ContentTable = ({ contents }: ContentTableProps) => {
+const imageSource = (image: string, kind: "posters" | "banners") =>
+  image.startsWith("blob:") ||
+  image.startsWith("http") ||
+  image.startsWith("/") ||
+  image.startsWith("data:")
+    ? image
+    : `/assets/${kind}/${image}`;
+
+const ContentTable = ({ contents, onEdit, onDelete }: ContentTableProps) => {
   return (
     <div className="hidden overflow-x-auto rounded-xl border border-text-light/15 bg-body-background lg:block">
       <table className="w-full min-w-230 text-left text-sm">
@@ -24,12 +34,14 @@ const ContentTable = ({ contents }: ContentTableProps) => {
             <tr key={content.id} className="text-greyscale-300">
               <td className="px-4 py-3">
                 <img
-                  src={`/assets/posters/${content.poster}`}
+                  src={imageSource(content.poster, "posters")}
                   alt={`${content.title} poster`}
                   className="h-14 w-10 rounded object-cover"
                 />
               </td>
-              <td className="px-4 py-3 font-bold text-text-light">{content.title}</td>
+              <td className="px-4 py-3 font-bold text-text-light">
+                {content.title}
+              </td>
               <td className="px-4 py-3 capitalize">{content.type}</td>
               <td className="px-4 py-3">{content.ageRating}</td>
               <td className="px-4 py-3">{content.genres.join(", ")}</td>
@@ -40,8 +52,20 @@ const ContentTable = ({ contents }: ContentTableProps) => {
               </td>
               <td className="px-4 py-3">
                 <div className="flex gap-2">
-                  <button type="button" disabled className="cursor-not-allowed rounded-md border border-text-light/20 px-2.5 py-1 text-xs text-greyscale-500">Edit</button>
-                  <button type="button" disabled className="cursor-not-allowed rounded-md border border-text-light/20 px-2.5 py-1 text-xs text-greyscale-500">Delete</button>
+                  <button
+                    type="button"
+                    onClick={() => onEdit(content)}
+                    className="rounded-md border border-text-light/20 px-2.5 py-1 text-xs text-text-light hover:bg-extra-background"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onDelete(content)}
+                    className="rounded-md border border-error/60 px-2.5 py-1 text-xs text-error hover:bg-error/10"
+                  >
+                    Delete
+                  </button>
                 </div>
               </td>
             </tr>

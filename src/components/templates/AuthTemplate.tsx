@@ -49,12 +49,14 @@ const AuthTemplate = ({ mode }: AuthTemplateProps) => {
               id="username"
               label="Username"
               placeholder="Masukkan username"
+              required
             />
             <InputField
               id="password"
               label="Kata Sandi"
               placeholder="Masukkan kata sandi"
               type="password"
+              required
             />
             {!isLogin && (
               <InputField
@@ -62,6 +64,7 @@ const AuthTemplate = ({ mode }: AuthTemplateProps) => {
                 label="Konfirmasi Kata Sandi"
                 placeholder="Konfirmasi kata sandi"
                 type="password"
+                required
               />
             )}
           </fieldset>

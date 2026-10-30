@@ -37,7 +37,7 @@ const MovieHoverCard = ({
       style={position}
     >
       <img
-        src={`/assets/banners/${content.banner}`}
+        src={content.banner.startsWith("blob:") || content.banner.startsWith("http") || content.banner.startsWith("/") || content.banner.startsWith("data:") ? content.banner : `/assets/banners/${content.banner}`}
         alt={content.title}
         className="h-64 w-full object-cover"
       />
@@ -90,6 +90,8 @@ const MovieHoverCard = ({
             </div>
           </>
         ) : (
+          <>
+          <div className="flex text-lg font-bold">{content.title}</div>
           <div className="flex items-center gap-5 text-xl font-bold">
             <span className="rounded-full bg-extra-background px-3 py-1 text-greyscale-300">
               {content.ageRating}
@@ -100,6 +102,7 @@ const MovieHoverCard = ({
                 : content.duration}
             </span>
           </div>
+          </>
         )}
 
         <div className="flex items-center gap-7 text-lg text-greyscale-300">

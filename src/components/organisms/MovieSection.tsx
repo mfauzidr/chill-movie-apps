@@ -1,17 +1,17 @@
-import type { MovieSectionData } from "../../data/movies";
 import MovieCard from "./MovieCard";
 import { CarrouselButton } from "../atoms/Button";
 import { useRef, useState } from "react";
 import type { Content } from "../../data/content";
 
-type MovieSectionProps = MovieSectionData & {
+type MovieSectionProps = {
+  title: string;
+  variant: "banners" | "poster" | "continue";
   contents: Content[];
 };
 
 const MovieSection = ({
   title,
   variant,
-  movies,
   contents,
 }: MovieSectionProps) => {
   const [activeMovieId, setActiveMovieId] = useState<string | null>(null);
@@ -36,23 +36,12 @@ const MovieSection = ({
           ref={carouselRef}
           className="relative flex items-center overflow-x-scroll scrollbar-hidden gap-4 md:gap-6"
         >
-          {movies.map((movie) => {
-            const content = contents.find(
-              (content) => content.id === movie.contentId,
-            );
-
-            if (!content) return null;
-
+          {contents.map((content) => {
             return (
               <MovieCard
                 key={content.id}
                 content={content}
                 variant={variant}
-                rating={movie.rating}
-                isNew={movie.isNew}
-                isTopTen={movie.isTopTen}
-                progress={movie.progress}
-                episode={movie.episode}
                 isActive={activeMovieId === content.id}
                 onMouseEnter={() => setActiveMovieId(content.id)}
                 onMouseLeave={() =>
