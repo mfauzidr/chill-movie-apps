@@ -12,7 +12,7 @@ const imageSource = (image: string, kind: "posters" | "banners") =>
   image.startsWith("/") ||
   image.startsWith("data:")
     ? image
-    : `/assets/${kind}/${image}`;
+    : `/src/assets/${kind}/${image}`;
 
 const ContentTable = ({ contents, onEdit, onDelete }: ContentTableProps) => {
   return (
@@ -48,7 +48,7 @@ const ContentTable = ({ contents, onEdit, onDelete }: ContentTableProps) => {
               <td className="px-4 py-3">
                 {content.type === "film"
                   ? content.duration
-                  : `${content.episodes ?? 0} episodes`}
+                  : `${content.totalEpisodes ?? 0} episodes`}
               </td>
               <td className="px-4 py-3">
                 <div className="flex gap-2">

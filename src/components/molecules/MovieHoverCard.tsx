@@ -1,9 +1,9 @@
 import { createPortal } from "react-dom";
 import type { Content } from "../../data/content";
 import Button from "../atoms/Button";
-import check from "/assets/icons/check.svg";
-import play from "/assets/icons/play.svg";
-import dropdown from "/assets/icons/dropdown.svg";
+import check from "../../assets/icons/check.svg";
+import play from "../../assets/icons/play.svg";
+import dropdown from "../../assets/icons/dropdown.svg";
 
 export type HoverCardPosition = {
   left: number;
@@ -37,7 +37,7 @@ const MovieHoverCard = ({
       style={position}
     >
       <img
-        src={content.banner.startsWith("blob:") || content.banner.startsWith("http") || content.banner.startsWith("/") || content.banner.startsWith("data:") ? content.banner : `/assets/banners/${content.banner}`}
+        src={content.banner.startsWith("blob:") || content.banner.startsWith("http") || content.banner.startsWith("/") || content.banner.startsWith("data:") ? content.banner : `/src/assets/banners/${content.banner}`}
         alt={content.title}
         className="h-64 w-full object-cover"
       />
@@ -98,7 +98,7 @@ const MovieHoverCard = ({
             </span>
             <span>
               {content.type === "series"
-                ? `${content.episodes} Episode`
+                ? `${content.episode} Episode`
                 : content.duration}
             </span>
           </div>

@@ -35,7 +35,7 @@ const MovieCard = ({
   const image = variant === "poster" ? content.poster : content.banner;
   const imageDirectory = variant === "poster" ? "posters" : "banners";
   const imageSource = image.startsWith("blob:") || image.startsWith("http") || image.startsWith("/") || image.startsWith("data:")
-    ? image : `/assets/${imageDirectory}/${image}`;
+    ? image : `/src/assets/${imageDirectory}/${image}`;
   const baseClasses =
     "relative flex shrink-0 cursor-pointer overflow-hidden rounded-md";
 

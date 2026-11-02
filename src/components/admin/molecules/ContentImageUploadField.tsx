@@ -18,7 +18,7 @@ const imageSource = (value: string, kind: "posters" | "banners") => {
     value.startsWith("data:")
   )
     return value;
-  return `/assets/${kind}/${value}`;
+  return `/src/assets/${kind}/${value}`;
 };
 
 const ContentImageUploadField = ({

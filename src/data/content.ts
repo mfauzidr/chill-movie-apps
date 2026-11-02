@@ -18,7 +18,7 @@ export interface Content {
   ageRating: string;
   duration?: string;
 
-  episodes?: number;
+  totalEpisodes?: number;
   seasons?: number;
   episodeDuration?: string;
 
@@ -53,7 +53,7 @@ export const contents: Content[] = [
     poster: "poster-aoud.webp",
     banner: "banner-aoud.webp",
     ageRating: "13+",
-    episodes: 16,
+    totalEpisodes: 16,
     seasons: 1,
     episodeDuration: "1j 6m",
     genres: ["Misteri", "Kriminal", "Fantasi"],
@@ -70,7 +70,7 @@ export const contents: Content[] = [
     poster: "poster-blue-lock.webp",
     banner: "banner-blue-lock.webp",
     ageRating: "13+",
-    episodes: 24,
+    totalEpisodes: 24,
     seasons: 1,
     episodeDuration: "24m",
     genres: ["Anime", "Olahraga"],
@@ -117,7 +117,7 @@ export const contents: Content[] = [
     poster: "poster-das.webp",
     banner: "banner-das.webp",
     ageRating: "13+",
-    episodes: 10,
+    totalEpisodes: 10,
     seasons: 1,
     episodeDuration: "1j 10m",
     genres: ["Aksi", "Drama", "Fiksi Ilmiah"],
@@ -170,7 +170,7 @@ export const contents: Content[] = [
     poster: "poster-bh6.webp",
     banner: "banner-bh6.webp",
     ageRating: "SU",
-    episodes: 6,
+    totalEpisodes: 6,
     seasons: 1,
     genres: ["Animasi", "Aksi", "Komedi"],
   },
@@ -236,7 +236,7 @@ export const contents: Content[] = [
     poster: "poster-aib.webp",
     banner: "banner-aib.webp",
     ageRating: "18+",
-    episodes: 16,
+    totalEpisodes: 16,
     seasons: 2,
     genres: ["Aksi", "Misteri", "Thriller"],
   },
@@ -261,7 +261,7 @@ export const contents: Content[] = [
     poster: "poster-baymax-series.webp",
     banner: "banner-baymax-series.webp",
     ageRating: "SU",
-    episodes: 6,
+    totalEpisodes: 6,
     seasons: 1,
     genres: ["Animasi", "Komedi", "Petualangan"],
   },
@@ -310,7 +310,7 @@ export const contents: Content[] = [
     poster: "poster-happiness.webp",
     banner: "banner-happiness.webp",
     ageRating: "18+",
-    episodes: 12,
+    totalEpisodes: 12,
     seasons: 1,
     genres: ["Drama", "Thriller", "Misteri"],
   },
@@ -335,7 +335,7 @@ export const contents: Content[] = [
     poster: "poster-mha.webp",
     banner: "banner-mha.webp",
     ageRating: "13+",
-    episodes: 13,
+    totalEpisodes: 13,
     seasons: 7,
     genres: ["Anime", "Aksi", "Petualangan"],
   },
@@ -396,7 +396,7 @@ export const contents: Content[] = [
     poster: "poster-ted-lasso.webp",
     banner: "banner-ted-lasso.webp",
     ageRating: "13+",
-    episodes: 12,
+    totalEpisodes: 12,
     seasons: 3,
     genres: ["Komedi", "Drama", "Olahraga"],
   },

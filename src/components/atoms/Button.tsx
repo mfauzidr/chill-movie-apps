@@ -13,8 +13,8 @@ const buttonStyles = {
 }
 
 const buttonIcons = {
-  left: './assets/icons/arrow-left.svg',
-  right: './assets/icons/arrow-right.svg',
+  left: '/src/assets/icons/arrow-left.svg',
+  right: '/src/assets/icons/arrow-right.svg',
 }
 
 const Button = ({ variant = 'primary', className = '', children, ...props }: ButtonProps) => {

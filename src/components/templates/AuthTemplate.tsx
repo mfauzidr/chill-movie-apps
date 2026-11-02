@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../atoms/Button";
 import InputField from "../molecules/InputField";
+import logo from "../../assets/logo/logo-full.svg";
+import googleIcon from "../../assets/icons/google.svg";
+import loginBg from "../../assets/bg/login-bg.webp";
+import registerBg from "../../assets/bg/register-bg.webp";
 
 interface AuthTemplateProps {
   mode: "login" | "register";
@@ -10,6 +14,7 @@ const AuthTemplate = ({ mode }: AuthTemplateProps) => {
   const navigate = useNavigate();
   const isLogin = mode === "login";
   const title = isLogin ? "Masuk" : "Daftar";
+  const bgImage = isLogin ? loginBg : registerBg;
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,7 +23,7 @@ const AuthTemplate = ({ mode }: AuthTemplateProps) => {
   return (
     <main
       className="flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url('/assets/bg/${mode}-bg.webp')` }}
+      style={{ backgroundImage: `url(${bgImage})` }}
     >
       <form
         onSubmit={handleSubmit}
@@ -30,7 +35,7 @@ const AuthTemplate = ({ mode }: AuthTemplateProps) => {
           onClick={async () => navigate("/")}
         >
           <img
-            src="/assets/logo/logo-full.svg"
+            src={logo}
             className="h-6 md:h-12 cursor-pointer"
             alt="Chill Logo"
           />
@@ -107,8 +112,8 @@ const AuthTemplate = ({ mode }: AuthTemplateProps) => {
           >
             <img
               className="h-2.5 w-2.5 md:h-3 md:w-3 lg:h-3.5 lg:w-3.5"
-              src="/assets/icons/google.svg"
-              alt=""
+              src={googleIcon}
+              alt="Google"
             />
             {isLogin ? "Masuk" : "Daftar"} dengan Google
           </Button>

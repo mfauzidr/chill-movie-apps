@@ -59,7 +59,7 @@ const fromContent = (content: Content): FormValues => ({
   ageRating: content.ageRating,
   genres: content.genres.join(", "),
   duration: content.duration ?? "",
-  episodes: content.episodes?.toString() ?? "",
+  episodes: content.totalEpisodes?.toString() ?? "",
   seasons: content.seasons?.toString() ?? "",
   episodeDuration: content.episodeDuration ?? "",
   isTrending: content.isTrending,
@@ -280,7 +280,7 @@ const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
     if (values.type === "film") {
       submitted.duration = values.duration.trim();
     } else {
-      submitted.episodes = Number(values.episodes);
+      submitted.totalEpisodes = Number(values.episodes);
 
       if (values.seasons.trim()) {
         submitted.seasons = Number(values.seasons);

@@ -2,10 +2,13 @@ import { useNavigate } from "react-router-dom";
 import type { ComponentType, SVGProps } from "react";
 
 import type { NavbarProps, NavItems } from "../../types/navigations";
+import logo from "../../assets/logo/logo-full.svg";
+import avatar from "../../assets/images/avatar.webp";
+import dropdown from "../../assets/icons/dropdown.svg";
 
-import ProfileIcon from "../../../public/assets/icons/profile.svg?react";
-import StarIcon from "../../../public/assets/icons/star.svg?react";
-import SignIcon from "../../../public/assets/icons/sign.svg?react";
+import ProfileIcon from "../../assets/icons/profile.svg?react";
+import StarIcon from "../../assets/icons/star.svg?react";
+import SignIcon from "../../assets/icons/sign.svg?react";
 
 const Navbar = ({ navItems }: NavbarProps) => {
   const navigate = useNavigate();
@@ -45,7 +48,7 @@ const Navbar = ({ navItems }: NavbarProps) => {
             onClick={async () => navigate("/")}
           >
             <img
-              src="/assets/logo/logo-full.svg"
+              src={logo}
               className="h-4 md:h-5 cursor-pointer"
               alt="Chill Logo"
             />
@@ -69,13 +72,13 @@ const Navbar = ({ navItems }: NavbarProps) => {
               className="h-7.5 w-7.5 overflow-hidden rounded-full md:h-9 md:w-9 lg:h-11 lg:w-11"
             >
               <img
-                src="/assets/images/avatar.webp"
+                src={avatar}
                 alt="Profile"
                 className="h-full w-full object-cover"
               />
             </button>
             <img
-              src="/assets/icons/dropdown.svg"
+              src={dropdown}
               alt=""
               className="h-7.5 w-7.5 md:h-8 md:w-8 lg:h-10 lg:w-10"
             />

@@ -1,4 +1,6 @@
 import { useState, type InputHTMLAttributes } from "react";
+import eyeOn from "../../assets/icons/eye-on.svg";
+import eyeOff from "../../assets/icons/eye-off.svg";
 
 interface InputFieldProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -61,8 +63,8 @@ const InputField = ({
             <img
               src={
                 showPassword
-                  ? "/assets/icons/eye-on.svg"
-                  : "/assets/icons/eye-off.svg"
+                  ? eyeOn
+                  : eyeOff
               }
               alt=""
               className="h-4 w-4"
