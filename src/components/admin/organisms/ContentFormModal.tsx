@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Content, ContentType } from "../../../data/content";
 import InputField from "../../molecules/InputField";
@@ -21,13 +20,13 @@ type FormValues = {
   isTopTen: boolean;
 };
 
-type FieldName = Exclude<keyof FormValues, "type" | "isTrending" | "isContinueWatching" | "isNew" | "isTopTen">;
+type FieldName = Exclude<
+  keyof FormValues,
+  "type" | "isTrending" | "isContinueWatching" | "isNew" | "isTopTen"
+>;
 type FormErrors = Partial<Record<FieldName, string>>;
 
-type ValidationRule = (
-  value: string,
-  values: FormValues,
-) => string | undefined;
+type ValidationRule = (value: string, values: FormValues) => string | undefined;
 
 type InputType = "text" | "number";
 
@@ -70,22 +69,18 @@ const fromContent = (content: Content): FormValues => ({
 
 // Validation rules
 const commonRules: Partial<Record<FieldName, ValidationRule>> = {
-  title: (value) =>
-    value.trim() ? undefined : "Title is required.",
+  title: (value) => (value.trim() ? undefined : "Title is required."),
 
-  ageRating: (value) =>
-    value.trim() ? undefined : "Age rating is required.",
+  ageRating: (value) => (value.trim() ? undefined : "Age rating is required."),
 
   genres: (value) =>
     value.split(",").some((genre) => genre.trim())
       ? undefined
       : "Enter at least one genre.",
 
-  poster: (value) =>
-    value ? undefined : "Poster is required.",
+  poster: (value) => (value ? undefined : "Poster is required."),
 
-  banner: (value) =>
-    value ? undefined : "Banner is required.",
+  banner: (value) => (value ? undefined : "Banner is required."),
 };
 
 const typeRules: Record<
@@ -118,7 +113,7 @@ const getFieldError = (field: FieldName, values: FormValues) => {
 interface Props {
   content: Content | null;
   onClose: () => void;
-  onSubmit: (content: Omit<Content, "id">) => void;
+  onSubmit: (content: Omit<Content, "id">) => Promise<void>;
 }
 
 const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
@@ -151,6 +146,8 @@ const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
   }, []);
 
   const close = useCallback(() => {
+    if (isSubmitting.current) return;
+
     temporaryUrls.current.forEach((url) => URL.revokeObjectURL(url));
     temporaryUrls.current.clear();
     onClose();
@@ -188,7 +185,12 @@ const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
         return nextErrors;
       }
 
-      if (field === "isTrending" || field === "isContinueWatching" || field === "isNew" || field === "isTopTen") {
+      if (
+        field === "isTrending" ||
+        field === "isContinueWatching" ||
+        field === "isNew" ||
+        field === "isTopTen"
+      ) {
         return nextErrors;
       }
 
@@ -236,9 +238,18 @@ const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
 
   const validate = () => {
     const nextErrors: FormErrors = {};
-    const fields: FieldName[] = values.type === "film"
-      ? ["title", "ageRating", "genres", "poster", "banner", "duration"]
-      : ["title", "ageRating", "genres", "poster", "banner", "episodes", "seasons"];
+    const fields: FieldName[] =
+      values.type === "film"
+        ? ["title", "ageRating", "genres", "poster", "banner", "duration"]
+        : [
+            "title",
+            "ageRating",
+            "genres",
+            "poster",
+            "banner",
+            "episodes",
+            "seasons",
+          ];
 
     fields.forEach((field) => {
       const error = getFieldError(field, values);
@@ -253,7 +264,7 @@ const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const submit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const submit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (isSubmitting.current) return;
@@ -291,12 +302,18 @@ const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
       }
     }
 
-    // Keep submitted image URLs alive after the modal closes.
-    temporaryUrls.current.delete(values.poster);
-    temporaryUrls.current.delete(values.banner);
+    try {
+      await onSubmit(submitted);
 
-    onSubmit(submitted);
-    onClose();
+      // Keep submitted image URLs alive after successful submission.
+      temporaryUrls.current.delete(values.poster);
+      temporaryUrls.current.delete(values.banner);
+
+      onClose();
+    } catch (error) {
+      console.error("Failed to submit content:", error);
+      isSubmitting.current = false;
+    }
   };
 
   const field = (
@@ -348,7 +365,6 @@ const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
 
           <label className="flex flex-col gap-1.5 text-sm font-medium text-text-light">
             Type
-
             <select
               value={values.type}
               onChange={(event) => {
@@ -412,7 +428,9 @@ const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
               <input
                 type="checkbox"
                 checked={values.isContinueWatching}
-                onChange={(event) => set("isContinueWatching", event.target.checked)}
+                onChange={(event) =>
+                  set("isContinueWatching", event.target.checked)
+                }
                 className="h-4 w-4 accent-primary"
               />
               Continue Watching

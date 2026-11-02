@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import type { Content } from "../data/content";
-import { getContents } from "../services/api/contentApi";
+import { getContents, createContent } from "../services/api/contentApi";
 
 interface ContentState {
   contents: Content[];
   setContents: (contents: Content[]) => void;
-  addContent: (content: Omit<Content, "id">) => void;
+  addContent: (content: Omit<Content, "id">) => Promise<void>;
   updateContent: (id: string, updates: Partial<Omit<Content, "id">>) => void;
   deleteContent: (id: string) => void;
   isLoading: boolean;
@@ -21,21 +21,7 @@ const revokeObjectUrl = (value: string | undefined) => {
   if (value && isObjectUrl(value)) URL.revokeObjectURL(value);
 };
 
-const createId = (title: string, contents: Content[]) => {
-  const base =
-    title
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "") || "content";
-  const ids = new Set(contents.map((content) => content.id));
-  let id = base;
-  let suffix = 2;
-  while (ids.has(id)) id = `${base}-${suffix++}`;
-  return id;
-};
-
-const normalizeContent = (content: Content): Content => {
+const normalizeContent = <T extends Omit<Content, "id">>(content: T): T => {
   const normalized = { ...content };
 
   if (normalized.type === "film") {
@@ -56,36 +42,49 @@ export const useContentStore = create<ContentState>((set, get) => ({
   hasFetched: false,
 
   fetchContents: async () => {
-  if (get().hasFetched || get().isLoading) return;
+    if (get().hasFetched || get().isLoading) return;
 
-  set({ isLoading: true, error: null });
+    set({ isLoading: true, error: null });
 
-  try {
-    const contents = await getContents();
-    set({ contents, hasFetched: true });
-  } catch (error) {
-    console.error("Failed to fetch contents:", error);
+    try {
+      const contents = await getContents();
+      set({ contents, hasFetched: true });
+    } catch (error) {
+      console.error("Failed to fetch contents:", error);
 
-    set({
-      error: "Failed to load content. Please try again.",
-    });
-  } finally {
-    set({ isLoading: false });
-  }
-},
+      set({
+        error: "Failed to load content. Please try again.",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 
   setContents: (contents) => set({ contents }),
 
-  addContent: (content) =>
-    set((state) => ({
-      contents: [
-        normalizeContent({
-          ...content,
-          id: createId(content.title, state.contents),
-        }),
-        ...state.contents,
-      ],
-    })),
+  addContent: async (content) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const normalizedContent = normalizeContent(content);
+
+      const createdContent = await createContent(normalizedContent);
+
+      set((state) => ({
+        contents: [createdContent, ...state.contents],
+      }));
+    } catch (error) {
+      console.error("Failed to create content:", error);
+
+      set({
+        error: "Failed to create content. Please try again.",
+      });
+
+      throw error;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 
   updateContent: (id, updates) =>
     set((state) => {

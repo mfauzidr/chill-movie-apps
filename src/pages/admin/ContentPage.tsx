@@ -13,6 +13,7 @@ const PAGE_SIZE = 10;
 
 const ContentPage = () => {
   const contents = useContentStore((state) => state.contents);
+  const fetchContents = useContentStore((state) => state.fetchContents);
   const addContent = useContentStore((state) => state.addContent);
   const updateContent = useContentStore((state) => state.updateContent);
   const deleteContent = useContentStore((state) => state.deleteContent);
@@ -24,6 +25,10 @@ const ContentPage = () => {
   );
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [contentToDelete, setContentToDelete] = useState<Content | null>(null);
+
+  useEffect(() => {
+    fetchContents();
+  }, [fetchContents]);
 
   const filteredContents = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();
@@ -73,6 +78,14 @@ const ContentPage = () => {
   const openEditModal = (content: Content) => {
     setFormContent(content);
     setIsFormModalOpen(true);
+  };
+
+  const handleSubmit = async (content: Omit<Content, "id">) => {
+    if (formContent) {
+      updateContent(formContent.id, content);
+    } else {
+      await addContent(content);
+    }
   };
 
   return (
@@ -127,12 +140,11 @@ const ContentPage = () => {
       {isFormModalOpen && formContent !== undefined && (
         <ContentFormModal
           content={formContent}
-          onClose={() => setIsFormModalOpen(false)}
-          onSubmit={(content) =>
-            formContent
-              ? updateContent(formContent.id, content)
-              : addContent(content)
-          }
+          onClose={() => {
+            setIsFormModalOpen(false);
+            setFormContent(undefined);
+          }}
+          onSubmit={handleSubmit}
         />
       )}
       {contentToDelete && (
