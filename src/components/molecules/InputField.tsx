@@ -1,6 +1,6 @@
 import { useState, type InputHTMLAttributes } from "react";
-import eyeOn from "../../assets/icons/eye-on.svg";
-import eyeOff from "../../assets/icons/eye-off.svg";
+import eyeOn from "/assets/icons/eye-on.svg";
+import eyeOff from "/assets/icons/eye-off.svg";
 
 interface InputFieldProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,

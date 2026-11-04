@@ -1,9 +1,9 @@
 import { createPortal } from "react-dom";
 import type { MovieHoverCardProps } from "../../types/movieView";
 import Button from "../atoms/Button";
-import check from "../../assets/icons/check.svg";
-import play from "../../assets/icons/play.svg";
-import dropdown from "../../assets/icons/dropdown.svg";
+import check from "/assets/icons/check.svg";
+import play from "/assets/icons/play.svg";
+import dropdown from "/assets/icons/dropdown.svg";
 
 const MovieHoverCard = ({
   content,

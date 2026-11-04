@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../atoms/Button";
 import InputField from "../molecules/InputField";
-import logo from "../../assets/logo/logo-full.svg";
-import googleIcon from "../../assets/icons/google.svg";
-import loginBg from "../../assets/bg/login-bg.webp";
-import registerBg from "../../assets/bg/register-bg.webp";
+import logo from "/assets/logo/logo-full.svg";
+import googleIcon from "/assets/icons/google.svg";
+import loginBg from "/assets/bg/login-bg.webp";
+import registerBg from "/assets/bg/register-bg.webp";
 
 interface AuthTemplateProps {
   mode: "login" | "register";

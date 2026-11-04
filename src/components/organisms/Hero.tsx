@@ -1,6 +1,6 @@
 import Button from '../atoms/Button'
-import about from '../../assets/icons/about.svg'
-import mute from '../../assets/icons/mute.svg'
+import about from '/assets/icons/about.svg'
+import mute from '/assets/icons/mute.svg'
 
 const Hero = () => {
   return (

@@ -34,7 +34,7 @@ const MovieCard = ({
     image.startsWith("/") ||
     image.startsWith("data:")
       ? image
-      : `/src/assets/${imageDirectory}/${image}`;
+      : `/assets/${imageDirectory}/${image}`;
   const baseClasses =
     "relative flex shrink-0 cursor-pointer overflow-hidden rounded-md";
 

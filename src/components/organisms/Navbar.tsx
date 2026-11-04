@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import type { ComponentType, SVGProps } from "react";
 
 import type { NavbarProps, NavItems } from "../../types/navigations";
-import logo from "../../assets/logo/logo-full.svg";
-import avatar from "../../assets/images/avatar.webp";
-import dropdown from "../../assets/icons/dropdown.svg";
+import logo from "/assets/logo/logo-full.svg";
+import avatar from "/assets/images/avatar.webp";
+import dropdown from "/assets/icons/dropdown.svg";
 
 import ProfileIcon from "../../assets/icons/profile.svg?react";
 import StarIcon from "../../assets/icons/star.svg?react";
