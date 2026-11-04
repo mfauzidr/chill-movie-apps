@@ -1,16 +1,16 @@
 
 import { axiosInstance } from "./axios";
-import type { Content } from "../../data/content";
+import type { Content } from "../../types/content";
 
 type ContentPayload = Omit<Content, "id">;
 
-export const getContents = async (): Promise<Content[]> => {
+export const getContentsApi = async (): Promise<Content[]> => {
   const response = await axiosInstance.get<Content[]>("/contents");
 
   return response.data;
 };
 
-export const createContent = async (
+export const createContentApi = async (
   payload: ContentPayload
 ): Promise<Content> => {
   const response = await axiosInstance.post<Content>(
@@ -21,7 +21,7 @@ export const createContent = async (
   return response.data;
 };
 
-export const updateContent = async (
+export const updateContentApi = async (
   id: string,
   payload: Partial<ContentPayload>
 ): Promise<Content> => {
@@ -33,7 +33,7 @@ export const updateContent = async (
   return response.data;
 };
 
-export const deleteContent = async (
+export const deleteContentApi = async (
   id: string
 ): Promise<void> => {
   await axiosInstance.delete(`/contents/${id}`);

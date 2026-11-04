@@ -1,28 +1,13 @@
 import { createPortal } from "react-dom";
-import type { Content } from "../../data/content";
+import type { MovieHoverCardProps } from "../../types/movieView";
 import Button from "../atoms/Button";
 import check from "../../assets/icons/check.svg";
 import play from "../../assets/icons/play.svg";
 import dropdown from "../../assets/icons/dropdown.svg";
 
-export type HoverCardPosition = {
-  left: number;
-  top: number;
-};
-
-interface MovieHoverCardProps {
-  content: Content;
-  isContinue: boolean;
-  progress: number;
-  episode?: number;
-  position: HoverCardPosition;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
-}
-
 const MovieHoverCard = ({
   content,
-  isContinue,
+  isContinueWatching,
   progress,
   episode,
   position,
@@ -70,7 +55,7 @@ const MovieHoverCard = ({
           </Button>
         </div>
 
-        {isContinue ? (
+        {isContinueWatching ? (
           <>
             {content.type === "series" && (
               <span className="text-xl font-bold">Episode {episode ?? 1}</span>

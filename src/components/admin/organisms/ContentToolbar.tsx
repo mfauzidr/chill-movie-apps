@@ -1,5 +1,5 @@
 import SearchField from "../../molecules/SearchField";
-import type { ContentType } from "../../../data/content";
+import type { ContentType } from "../../../types/content";
 
 export type ContentFilter = "all" | ContentType;
 

@@ -6,7 +6,7 @@ import ContentToolbar, {
   type ContentFilter,
 } from "../../components/admin/organisms/ContentToolbar";
 import { useContentStore } from "../../stores/contentStore";
-import type { Content } from "../../data/content";
+import type { Content } from "../../types/content";
 import ContentFormModal from "../../components/admin/organisms/ContentFormModal";
 
 const PAGE_SIZE = 10;
@@ -82,7 +82,7 @@ const ContentPage = () => {
 
   const handleSubmit = async (content: Omit<Content, "id">) => {
     if (formContent) {
-      updateContent(formContent.id, content);
+      await updateContent(formContent.id, content);
     } else {
       await addContent(content);
     }

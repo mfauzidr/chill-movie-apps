@@ -1,13 +1,20 @@
 import { create } from "zustand";
-import type { Content } from "../data/content";
-import { getContents, createContent } from "../services/api/contentApi";
+import type { Content } from "../types/content";
+import {
+  getContentsApi,
+  createContentApi,
+  updateContentApi,
+  deleteContentApi,
+} from "../services/api/contentApi";
 
 interface ContentState {
   contents: Content[];
-  setContents: (contents: Content[]) => void;
   addContent: (content: Omit<Content, "id">) => Promise<void>;
-  updateContent: (id: string, updates: Partial<Omit<Content, "id">>) => void;
-  deleteContent: (id: string) => void;
+  updateContent: (
+    id: string,
+    updates: Partial<Omit<Content, "id">>,
+  ) => Promise<void>;
+  deleteContent: (id: string) => Promise<void>;
   isLoading: boolean;
   error: string | null;
   fetchContents: () => Promise<void>;
@@ -47,7 +54,7 @@ export const useContentStore = create<ContentState>((set, get) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const contents = await getContents();
+      const contents = await getContentsApi();
       set({ contents, hasFetched: true });
     } catch (error) {
       console.error("Failed to fetch contents:", error);
@@ -60,15 +67,13 @@ export const useContentStore = create<ContentState>((set, get) => ({
     }
   },
 
-  setContents: (contents) => set({ contents }),
-
   addContent: async (content) => {
     set({ isLoading: true, error: null });
 
     try {
       const normalizedContent = normalizeContent(content);
 
-      const createdContent = await createContent(normalizedContent);
+      const createdContent = await createContentApi(normalizedContent);
 
       set((state) => ({
         contents: [createdContent, ...state.contents],
@@ -86,59 +91,82 @@ export const useContentStore = create<ContentState>((set, get) => ({
     }
   },
 
-  updateContent: (id, updates) =>
-    set((state) => {
-      const current = state.contents.find((content) => content.id === id);
-      if (!current) return state;
-      const next = normalizeContent({ ...current, ...updates, id: current.id });
-      const isStillReferenced = (url: string | undefined) =>
-        Boolean(url) &&
-        (next.poster === url ||
-          next.banner === url ||
-          state.contents.some(
-            (content) =>
-              content.id !== id &&
-              (content.poster === url || content.banner === url),
-          ));
-      if (
-        updates.poster &&
-        updates.poster !== current.poster &&
-        !isStillReferenced(current.poster)
-      )
-        revokeObjectUrl(current.poster);
-      if (
-        updates.banner &&
-        updates.banner !== current.banner &&
-        !isStillReferenced(current.banner)
-      )
-        revokeObjectUrl(current.banner);
-      return {
-        contents: state.contents.map((content) =>
-          content.id === id ? next : content,
-        ),
-      };
-    }),
+  updateContent: async (id, updates) => {
+    set({ isLoading: true, error: null });
 
-  deleteContent: (id) =>
-    set((state) => {
-      const deleted = state.contents.find((content) => content.id === id);
-      if (deleted) {
-        const isReferencedElsewhere = (url: string) =>
-          state.contents.some(
-            (content) =>
-              content.id !== id &&
-              (content.poster === url || content.banner === url),
-          );
-        if (!isReferencedElsewhere(deleted.poster))
-          revokeObjectUrl(deleted.poster);
-        if (
-          deleted.banner !== deleted.poster &&
-          !isReferencedElsewhere(deleted.banner)
-        )
-          revokeObjectUrl(deleted.banner);
+    try {
+      const current = get().contents.find((content) => content.id === id);
+
+      if (!current) {
+        throw new Error("Content not found.");
       }
-      return {
+
+      const normalizedContent = normalizeContent({
+        ...current,
+        ...updates,
+      });
+
+      const updatedContent = await updateContentApi(id, normalizedContent);
+
+      set((state) => ({
+        contents: state.contents.map((content) =>
+          content.id === id ? updatedContent : content,
+        ),
+      }));
+    } catch (error) {
+      console.error("Failed to update content:", error);
+
+      set({
+        error: "Failed to update content. Please try again.",
+      });
+
+      throw error;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  deleteContent: async (id) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const current = get().contents.find((content) => content.id === id);
+
+      if (!current) {
+        throw new Error("Content not found.");
+      }
+
+      await deleteContentApi(id);
+
+      set((state) => ({
         contents: state.contents.filter((content) => content.id !== id),
-      };
-    }),
+      }));
+
+      const isReferencedElsewhere = (url: string) =>
+        get().contents.some(
+          (content) => content.poster === url || content.banner === url,
+        );
+
+      if (!isReferencedElsewhere(current.poster)) {
+        revokeObjectUrl(current.poster);
+      }
+
+      if (
+        current.banner !== current.poster &&
+        !isReferencedElsewhere(current.banner)
+      ) {
+        revokeObjectUrl(current.banner);
+      }
+    } catch (error) {
+      console.error("Failed to delete content:", error);
+
+      set({
+        error: "Failed to delete content. Please try again.",
+      });
+
+      throw error;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 }));

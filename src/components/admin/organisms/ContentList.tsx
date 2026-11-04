@@ -1,4 +1,4 @@
-import type { Content } from "../../../data/content";
+import type { Content } from "../../../types/content";
 
 interface ContentListProps {
   contents: Content[];

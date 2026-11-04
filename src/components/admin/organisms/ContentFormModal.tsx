@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Content, ContentType } from "../../../data/content";
+import type { Content, ContentType } from "../../../types/content";
 import InputField from "../../molecules/InputField";
 import ContentImageUploadField from "../molecules/ContentImageUploadField";
 

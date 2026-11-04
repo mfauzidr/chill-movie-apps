@@ -17,25 +17,29 @@ const HomePage = () => {
     {
       id: "lanjut-menonton",
       title: "Melanjutkan Tonton Film",
-      variant: "continue" as const,
+      variant: "banners" as const,
+      isContinueWatching: true,
       contents: contents.filter((content) => content.isContinueWatching),
     },
     {
       id: "film",
       title: "Top Rating Film dan Series Hari Ini",
       variant: "poster" as const,
+      isContinueWatching: false,
       contents: contents.filter((content) => content.type === "film"),
     },
     {
       id: "trending",
       title: "Film Trending",
       variant: "poster" as const,
+      isContinueWatching: false,
       contents: contents.filter((content) => content.isTrending),
     },
     {
       id: "series",
       title: "Rilis Baru",
       variant: "poster" as const,
+      isContinueWatching: false,
       contents: contents.filter((content) => content.type === "series"),
     },
   ];

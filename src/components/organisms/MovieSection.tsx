@@ -1,19 +1,14 @@
 import MovieCard from "./MovieCard";
 import { CarrouselButton } from "../atoms/Button";
 import { useRef, useState } from "react";
-import type { Content } from "../../data/content";
-
-type MovieSectionProps = {
-  title: string;
-  variant: "banners" | "poster" | "continue";
-  contents: Content[];
-};
+import type { MovieSectionConfig } from "../../types/movieView";
 
 const MovieSection = ({
   title,
   variant,
+  isContinueWatching,
   contents,
-}: MovieSectionProps) => {
+}: MovieSectionConfig) => {
   const [activeMovieId, setActiveMovieId] = useState<string | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -42,6 +37,7 @@ const MovieSection = ({
                 key={content.id}
                 content={content}
                 variant={variant}
+                isContinueWatching={isContinueWatching}
                 isActive={activeMovieId === content.id}
                 onMouseEnter={() => setActiveMovieId(content.id)}
                 onMouseLeave={() =>
