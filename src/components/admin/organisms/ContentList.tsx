@@ -12,7 +12,7 @@ const imageSource = (image: string) =>
   image.startsWith("/") ||
   image.startsWith("data:")
     ? image
-    : `/src/assets/posters/${image}`;
+    : `/assets/posters/${image}`;
 
 const ContentList = ({ contents, onEdit, onDelete }: ContentListProps) => (
   <div className="flex flex-col gap-3 lg:hidden">

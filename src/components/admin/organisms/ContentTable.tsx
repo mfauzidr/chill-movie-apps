@@ -12,7 +12,7 @@ const imageSource = (image: string, kind: "posters" | "banners") =>
   image.startsWith("/") ||
   image.startsWith("data:")
     ? image
-    : `/src/assets/${kind}/${image}`;
+    : `/assets/${kind}/${image}`;
 
 const ContentTable = ({ contents, onEdit, onDelete }: ContentTableProps) => {
   return (

@@ -7,3 +7,28 @@ export const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    if (import.meta.env.DEV) {
+      console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`);
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (import.meta.env.DEV) {
+      console.error(
+        `[API Error] ${error.response?.status ?? "Network Error"}`,
+        error.message
+      );
+    }
+
+    return Promise.reject(error);
+  }
+);
