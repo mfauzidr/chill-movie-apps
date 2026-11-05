@@ -132,7 +132,7 @@ const MovieCard = ({
               <span className="min-w-0 truncate">{content.title}</span>
 
               <span className="flex shrink-0 items-center gap-2 text-text-light">
-                <span className="h-2.5 w-2.5 bg-current [mask:url('/assets/icons/star.svg')_center/contain_no-repeat]" />
+                <span className="h-2.5 w-2.5 bg-current [mask:url('/src/assets/icons/star.svg')_center/contain_no-repeat]" />
                 {content.rating}
               </span>
             </div>
