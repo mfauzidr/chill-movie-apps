@@ -1,17 +1,13 @@
-import { useEffect } from "react";
 import Hero from "../components/organisms/Hero";
 import MovieSection from "../components/organisms/MovieSection";
 import { useContentStore } from "../stores/contentStore";
+import {useContents} from "../hooks/useContents";
 
 const HomePage = () => {
+  const {retry} = useContents();
   const contents = useContentStore((state) => state.contents);
   const isLoading = useContentStore((state) => state.isLoading);
   const error = useContentStore((state) => state.error);
-  const fetchContents = useContentStore((state) => state.fetchContents);
-
-  useEffect(() => {
-    fetchContents();
-  }, [fetchContents]);
 
   const sections = [
     {
@@ -60,7 +56,7 @@ const HomePage = () => {
             <p className="mb-4 text-error">{error}</p>
             <button
               type="button"
-              onClick={fetchContents}
+              onClick={retry}
               className="rounded-lg bg-primary px-5 py-2.5 font-bold text-white"
             >
               Retry

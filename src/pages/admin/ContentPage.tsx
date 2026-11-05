@@ -8,12 +8,14 @@ import ContentToolbar, {
 import { useContentStore } from "../../stores/contentStore";
 import type { Content } from "../../types/content";
 import ContentFormModal from "../../components/admin/organisms/ContentFormModal";
+import { useContents } from "../../hooks/useContents";
 
 const PAGE_SIZE = 10;
 
 const ContentPage = () => {
+  useContents();
+  
   const contents = useContentStore((state) => state.contents);
-  const fetchContents = useContentStore((state) => state.fetchContents);
   const addContent = useContentStore((state) => state.addContent);
   const updateContent = useContentStore((state) => state.updateContent);
   const deleteContent = useContentStore((state) => state.deleteContent);
@@ -26,9 +28,6 @@ const ContentPage = () => {
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [contentToDelete, setContentToDelete] = useState<Content | null>(null);
 
-  useEffect(() => {
-    fetchContents();
-  }, [fetchContents]);
 
   const filteredContents = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();

@@ -22,7 +22,14 @@ const MovieHoverCard = ({
       style={position}
     >
       <img
-        src={content.banner.startsWith("blob:") || content.banner.startsWith("http") || content.banner.startsWith("/") || content.banner.startsWith("data:") ? content.banner : `/src/assets/banners/${content.banner}`}
+        src={
+          content.banner.startsWith("blob:") ||
+          content.banner.startsWith("http") ||
+          content.banner.startsWith("/") ||
+          content.banner.startsWith("data:")
+            ? content.banner
+            : `/assets/banners/${content.banner}`
+        }
         alt={content.title}
         className="h-64 w-full object-cover"
       />
@@ -47,11 +54,7 @@ const MovieHoverCard = ({
             variant="outlineWhite"
             className="flex h-11.5 w-11.5 items-center justify-center"
           >
-            <img
-              src={dropdown}
-              alt="Dropdown"
-              className="h-6 w-6"
-            />
+            <img src={dropdown} alt="Dropdown" className="h-6 w-6" />
           </Button>
         </div>
 
@@ -76,23 +79,26 @@ const MovieHoverCard = ({
           </>
         ) : (
           <>
-          <div className="flex text-lg font-bold">{content.title}</div>
-          <div className="flex items-center gap-5 text-xl font-bold">
-            <span className="rounded-full bg-extra-background px-3 py-1 text-greyscale-300">
-              {content.ageRating}
-            </span>
-            <span>
-              {content.type === "series"
-                ? `${content.episode} Episode`
-                : content.duration}
-            </span>
-          </div>
+            <div className="flex text-lg font-bold">{content.title}</div>
+            <div className="flex items-center gap-5 text-xl font-bold">
+              <span className="rounded-full bg-extra-background px-3 py-1 text-greyscale-300">
+                {content.ageRating}
+              </span>
+              <span>
+                {content.type === "series"
+                  ? `${content.episode} Episode`
+                  : content.duration}
+              </span>
+            </div>
           </>
         )}
 
         <div className="flex items-center gap-7 text-lg text-greyscale-300">
           {content.genres.slice(0, 3).map((genre, index) => (
-            <span key={genre} className="flex items-center gap-7 whitespace-nowrap">
+            <span
+              key={genre}
+              className="flex items-center gap-7 whitespace-nowrap"
+            >
               {index > 0 && (
                 <span className="h-2 w-2 rounded-full bg-greyscale-300" />
               )}
