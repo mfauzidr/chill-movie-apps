@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useContentStore } from "../stores/contentStore";
+import { useContentStore } from "../stores/zustand/contentStore";
 
 export const useContents = () => {
   const fetchContents = useContentStore((state) => state.fetchContents);

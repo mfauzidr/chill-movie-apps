@@ -18,7 +18,7 @@
     "./src/pages/loginpage.tsx",
     "./src/pages/registerpage.tsx",
     "./src/routes/router.tsx",
-    "./src/stores/contentstore.ts",
+    "./src/stores/zustand/contentstore.ts",
     "./src/types/contentcontext.ts"
   ],
   "version": "5.8.3"

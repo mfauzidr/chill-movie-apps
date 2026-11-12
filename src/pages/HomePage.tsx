@@ -1,6 +1,6 @@
 import Hero from "../components/organisms/Hero";
 import MovieSection from "../components/organisms/MovieSection";
-import { useContentStore } from "../stores/contentStore";
+import { useContentStore } from "../stores/zustand/contentStore";
 import {useContents} from "../hooks/useContents";
 
 const HomePage = () => {

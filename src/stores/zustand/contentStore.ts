@@ -1,11 +1,11 @@
 import { create } from "zustand";
-import type { Content } from "../types/content";
+import type { Content } from "../../types/content";
 import {
   getContentsApi,
   createContentApi,
   updateContentApi,
   deleteContentApi,
-} from "../services/api/contentApi";
+} from "../../services/api/contentApi";
 
 interface ContentState {
   contents: Content[];
