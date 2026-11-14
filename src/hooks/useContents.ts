@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import {
   fetchContents,
   addContent,
+  updateContent,
+  deleteContent,
 } from "../stores/redux/slices/contentSlice";
 import {
   useAppDispatch,
@@ -25,6 +27,14 @@ export const useContents = () => {
     (state) => state.content.isCreating
   );
 
+  const isUpdating = useAppSelector(
+    (state) => state.content.isUpdating
+  );
+
+  const isDeleting = useAppSelector(
+    (state) => state.content.isDeleting
+  );
+
   const error = useAppSelector(
     (state) => state.content.error
   );
@@ -40,11 +50,21 @@ export const useContents = () => {
   const create = (payload: Omit<Content, "id">) =>
     dispatch(addContent(payload)).unwrap();
 
+  const update = (id: string, updates: Omit<Content, "id">) =>
+    dispatch(updateContent({ id, updates })).unwrap();
+
+  const remove = (id: string) =>
+  dispatch(deleteContent({ id })).unwrap();
+
   return {
     contents,
     isCreating,
+    isUpdating,
     error,
     retry,
     create,
+    update,
+    remove,
+    isDeleting
   };
 };

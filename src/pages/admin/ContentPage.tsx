@@ -5,19 +5,20 @@ import ContentTable from "../../components/admin/organisms/ContentTable";
 import ContentToolbar, {
   type ContentFilter,
 } from "../../components/admin/organisms/ContentToolbar";
-import { useContentStore } from "../../stores/zustand/contentStore";
+// import { useContentStore } from "../../stores/zustand/contentStore";
 import type { Content } from "../../types/content";
 import ContentFormModal from "../../components/admin/organisms/ContentFormModal";
 import { useContents } from "../../hooks/useContents";
 import { useAppSelector } from "../../stores/redux/hooks";
+import Button from "../../components/atoms/Button";
 
 const PAGE_SIZE = 10;
 
 const ContentPage = () => {
   const contents = useAppSelector((state) => state.content.contents);
   const { create, isCreating } = useContents();
-  const updateContent = useContentStore((state) => state.updateContent);
-  const deleteContent = useContentStore((state) => state.deleteContent);
+  const { update, isUpdating } = useContents();
+  const { remove, isDeleting } = useContents();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<ContentFilter>("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,7 +27,6 @@ const ContentPage = () => {
   );
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [contentToDelete, setContentToDelete] = useState<Content | null>(null);
-
 
   const filteredContents = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();
@@ -80,9 +80,16 @@ const ContentPage = () => {
 
   const handleSubmit = async (content: Omit<Content, "id">) => {
     if (formContent) {
-      await updateContent(formContent.id, content);
+      await update(formContent.id, content);
     } else {
       await create(content);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (contentToDelete) {
+      await remove(contentToDelete.id);
+      setContentToDelete(null);
     }
   };
 
@@ -144,6 +151,7 @@ const ContentPage = () => {
           }}
           onSubmit={handleSubmit}
           isCreating={isCreating}
+          isUpdating={isUpdating}
         />
       )}
       {contentToDelete && (
@@ -172,16 +180,14 @@ const ContentPage = () => {
               >
                 Cancel
               </button>
-              <button
-                type="button"
-                onClick={() => {
-                  deleteContent(contentToDelete.id);
-                  setContentToDelete(null);
-                }}
-                className="rounded-lg bg-error px-4 py-2.5 text-sm font-bold text-white hover:bg-error-hover"
+              <Button
+                variant={isDeleting ? "disabled" : "error"}
+                className={`rounded-lg bg-error px-4 py-2.5 text-sm font-bold text-white`}
+                onClick={handleDelete}
+                disabled={isDeleting}
               >
                 Confirm Delete
-              </button>
+              </Button>
             </div>
           </div>
         </div>
