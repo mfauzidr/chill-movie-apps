@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import {
   fetchContents,
@@ -6,38 +5,25 @@ import {
   updateContent,
   deleteContent,
 } from "../stores/redux/slices/contentSlice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../stores/redux/hooks";
+import { useAppDispatch, useAppSelector } from "../stores/redux/hooks";
 import type { Content } from "../types/content";
 
 export const useContents = () => {
   const dispatch = useAppDispatch();
 
-  const hasFetched = useAppSelector(
-    (state) => state.content.hasFetched
-  );
+  const hasFetched = useAppSelector((state) => state.content.hasFetched);
 
-  const contents = useAppSelector(
-    (state) => state.content.contents
-  );
+  const contents = useAppSelector((state) => state.content.contents);
 
-  const isCreating = useAppSelector(
-    (state) => state.content.isCreating
-  );
+  const isFetching = useAppSelector((state) => state.content.isFetching);
 
-  const isUpdating = useAppSelector(
-    (state) => state.content.isUpdating
-  );
+  const isCreating = useAppSelector((state) => state.content.isCreating);
 
-  const isDeleting = useAppSelector(
-    (state) => state.content.isDeleting
-  );
+  const isUpdating = useAppSelector((state) => state.content.isUpdating);
 
-  const error = useAppSelector(
-    (state) => state.content.error
-  );
+  const isDeleting = useAppSelector((state) => state.content.isDeleting);
+
+  const error = useAppSelector((state) => state.content.error);
 
   useEffect(() => {
     if (!hasFetched) {
@@ -53,18 +39,18 @@ export const useContents = () => {
   const update = (id: string, updates: Omit<Content, "id">) =>
     dispatch(updateContent({ id, updates })).unwrap();
 
-  const remove = (id: string) =>
-  dispatch(deleteContent({ id })).unwrap();
+  const remove = (id: string) => dispatch(deleteContent({ id })).unwrap();
 
   return {
     contents,
+    isFetching,
     isCreating,
     isUpdating,
+    isDeleting,
     error,
     retry,
     create,
     update,
     remove,
-    isDeleting
   };
 };

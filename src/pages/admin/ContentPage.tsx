@@ -5,7 +5,6 @@ import ContentTable from "../../components/admin/organisms/ContentTable";
 import ContentToolbar, {
   type ContentFilter,
 } from "../../components/admin/organisms/ContentToolbar";
-// import { useContentStore } from "../../stores/zustand/contentStore";
 import type { Content } from "../../types/content";
 import ContentFormModal from "../../components/admin/organisms/ContentFormModal";
 import { useContents } from "../../hooks/useContents";

@@ -86,19 +86,24 @@ export const updateContent = createAsyncThunk<
   async ({ id, updates }, { getState, rejectWithValue }) => {
     try {
       const state = getState();
+
       const currentContent = state.content.contents.find(
         (content) => content.id === id,
       );
+
       if (!currentContent) {
         return rejectWithValue("Content not found.");
       }
 
+      const { id: contentId, ...contentData } = currentContent;
+
       const normalizedUpdates = normalizeContent({
-        ...currentContent,
+        ...contentData,
         ...updates,
       });
 
-      const response = await updateContentApi(id, normalizedUpdates);
+      const response = await updateContentApi(contentId, normalizedUpdates);
+
       return response;
     } catch (error) {
       return rejectWithValue("An error occurred while updating content.");
