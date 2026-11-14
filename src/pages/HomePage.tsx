@@ -1,13 +1,13 @@
 import Hero from "../components/organisms/Hero";
 import MovieSection from "../components/organisms/MovieSection";
-import { useContentStore } from "../stores/zustand/contentStore";
 import {useContents} from "../hooks/useContents";
+import { useAppSelector } from "../stores/redux/hooks";
 
 const HomePage = () => {
   const {retry} = useContents();
-  const contents = useContentStore((state) => state.contents);
-  const isLoading = useContentStore((state) => state.isLoading);
-  const error = useContentStore((state) => state.error);
+  const contents = useAppSelector((state) => state.content.contents);
+  const isLoading = useAppSelector((state) => state.content.isLoading);
+  const error = useAppSelector((state) => state.content.error);
 
   const sections = [
     {
