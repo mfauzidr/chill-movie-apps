@@ -1,19 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { AxiosError } from "axios";
-import { getContentsApi } from "../../../services/api/contentApi";
+import {
+  createContentApi,
+  getContentsApi,
+} from "../../../services/api/contentApi";
 import type { Content } from "../../../types/content";
 import type { RootState } from "../store";
+import { isObjectUrl, revokeObjectUrl, normalizeContent } from "../../../utils/contentUtils";
 
 export interface ContentState {
   contents: Content[];
-  isLoading: boolean;
+  isFetching: boolean;
+  isCreating: boolean;
+  isUpdating: boolean;
+  isDeleting: boolean;
   hasFetched: boolean;
   error: string | null;
 }
 
 const initialState: ContentState = {
   contents: [],
-  isLoading: false,
+  isFetching: false,
+  isCreating: false,
+  isUpdating: false,
+  isDeleting: false,
   hasFetched: false,
   error: null,
 };
@@ -40,12 +50,30 @@ export const fetchContents = createAsyncThunk<
   },
   {
     condition: (_, { getState }) => {
-      const { hasFetched, isLoading } = getState().content;
+      const { hasFetched, isFetching } = getState().content;
 
-      return !hasFetched && !isLoading;
+      return !hasFetched && !isFetching;
     },
   },
 );
+
+export const addContent = createAsyncThunk<
+  Content,
+  Omit<Content, "id">,
+  { rejectValue: string }
+>("content/addContent", async (payload, { rejectWithValue }) => {
+  try {
+    const normalizedPayload = normalizeContent(payload);
+    const response = await createContentApi(normalizedPayload);
+    return response;
+  } catch (error) {
+    const err = error as AxiosError;
+    if (err.response?.status === 400) {
+      return rejectWithValue("Invalid content data.");
+    }
+    return rejectWithValue("An error occurred while adding content.");
+  }
+});
 
 const contentSlice = createSlice({
   name: "content",
@@ -54,23 +82,39 @@ const contentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchContents.pending, (state) => {
-        state.isLoading = true;
+        state.isFetching = true;
         state.error = null;
       })
       .addCase(fetchContents.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isFetching = false;
         state.hasFetched = true;
         state.error = null;
         state.contents = action.payload;
       })
       .addCase(fetchContents.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isFetching = false;
         state.hasFetched = false;
         state.error =
           action.payload ||
           action.error.message ||
           "An error occurred while fetching contents.";
-      });
+      })
+      .addCase(addContent.pending, (state) => {
+        state.isCreating = true;
+        state.error = null;
+      })
+      .addCase(addContent.fulfilled, (state, action) => {
+        state.isCreating = false;
+        state.error = null;
+        state.contents = [action.payload, ...state.contents];
+      })
+      .addCase(addContent.rejected, (state, action) => {
+        state.isCreating = false;
+        state.error =
+          action.payload ||
+          action.error.message ||
+          "An error occurred while adding contents.";
+      })
   },
 });
 

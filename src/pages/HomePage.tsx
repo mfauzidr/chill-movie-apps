@@ -6,7 +6,7 @@ import { useAppSelector } from "../stores/redux/hooks";
 const HomePage = () => {
   const {retry} = useContents();
   const contents = useAppSelector((state) => state.content.contents);
-  const isLoading = useAppSelector((state) => state.content.isLoading);
+  const isFetching = useAppSelector((state) => state.content.isFetching);
   const error = useAppSelector((state) => state.content.error);
 
   const sections = [
@@ -45,7 +45,7 @@ const HomePage = () => {
       <Hero />
 
       <main className="px-8 py-8 md:px-12 md:py-12 lg:px-32 lg:py-20">
-        {isLoading && contents.length === 0 && (
+        {isFetching && contents.length === 0 && (
           <p className="py-16 text-center text-greyscale-400">
             Loading content...
           </p>
@@ -64,7 +64,7 @@ const HomePage = () => {
           </div>
         )}
 
-        {!isLoading && !error && contents.length === 0 && (
+        {!isFetching && !error && contents.length === 0 && (
           <p className="py-16 text-center text-greyscale-400">
             No content available.
           </p>

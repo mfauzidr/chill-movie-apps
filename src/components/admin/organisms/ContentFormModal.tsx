@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Content, ContentType } from "../../../types/content";
 import InputField from "../../molecules/InputField";
 import ContentImageUploadField from "../molecules/ContentImageUploadField";
+import Button from "../../atoms/Button";
 
 type FormValues = {
   title: string;
@@ -114,9 +115,11 @@ interface Props {
   content: Content | null;
   onClose: () => void;
   onSubmit: (content: Omit<Content, "id">) => Promise<void>;
+  isCreating?: boolean;
+  isUpdating?: boolean;
 }
 
-const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
+const ContentFormModal = ({ content, onClose, onSubmit, isCreating, isUpdating }: Props) => {
   const [values, setValues] = useState<FormValues>(() =>
     content ? fromContent(content) : emptyValues,
   );
@@ -464,17 +467,13 @@ const ContentFormModal = ({ content, onClose, onSubmit }: Props) => {
           >
             Cancel
           </button>
-
-          <button
-            type="submit"
-            className="rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-white hover:bg-primary-hover"
-          >
+          <Button variant={isCreating || isUpdating ? "disabled" : "primary"} type="submit" className="rounded-md text-sm px-4" disabled={isCreating || isUpdating}>
             {isEdit ? "Save Changes" : "Add Content"}
-          </button>
+          </Button>
         </div>
       </form>
     </div>
   );
-};
+}
 
 export default ContentFormModal;

@@ -1,13 +1,14 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'outlineWhite'
+  variant?: 'primary' | 'secondary' | 'disabled' | 'outline' | 'outlineWhite'
   children?: ReactNode
 }
 
 const buttonStyles = {
   primary: 'bg-primary hover:bg-primary-hover',
   secondary: 'bg-paper-background hover:bg-extra-background',
+  disabled: 'bg-greyscale-400 cursor-not-allowed',
   outline: 'border border-greyscale-400 text-greyscale-400 hover:border-text-light hover:text-text-light',
   outlineWhite: 'border border-white text-white hover:border-text-light hover:text-text-light',
 }

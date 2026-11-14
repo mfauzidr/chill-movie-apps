@@ -9,14 +9,13 @@ import { useContentStore } from "../../stores/zustand/contentStore";
 import type { Content } from "../../types/content";
 import ContentFormModal from "../../components/admin/organisms/ContentFormModal";
 import { useContents } from "../../hooks/useContents";
+import { useAppSelector } from "../../stores/redux/hooks";
 
 const PAGE_SIZE = 10;
 
 const ContentPage = () => {
-  useContents();
-  
-  const contents = useContentStore((state) => state.contents);
-  const addContent = useContentStore((state) => state.addContent);
+  const contents = useAppSelector((state) => state.content.contents);
+  const { create, isCreating } = useContents();
   const updateContent = useContentStore((state) => state.updateContent);
   const deleteContent = useContentStore((state) => state.deleteContent);
   const [search, setSearch] = useState("");
@@ -83,7 +82,7 @@ const ContentPage = () => {
     if (formContent) {
       await updateContent(formContent.id, content);
     } else {
-      await addContent(content);
+      await create(content);
     }
   };
 
@@ -144,6 +143,7 @@ const ContentPage = () => {
             setFormContent(undefined);
           }}
           onSubmit={handleSubmit}
+          isCreating={isCreating}
         />
       )}
       {contentToDelete && (
